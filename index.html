@@ -3,206 +3,250 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Untuk Alya Nurrachman (Aya)</title>
+  <title>Untuk Alya Nurrachman (Aya) 💖</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
       overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
       color: white;
       text-align: center;
     }
-    canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+
+    /* Canvas bintang */
+    canvas#stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: -2;
     }
-    .container {
-      position: relative;
-      z-index: 2;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    h1 {
-      font-size: 2.5em;
-      text-shadow: 0 0 15px rgba(255,255,255,0.8);
-      margin-bottom: 20px;
-    }
-    .buttons button {
-      padding: 12px 28px;
-      margin: 12px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .yes { background: #ff4d6d; color: white; box-shadow: 0 0 15px #ff4d6d; }
-    .yes:hover { background: #e63956; }
-    .no { background: #444; color: white; }
-    .no:hover { background: #222; }
-    .heart, .sakura {
-      position: absolute;
+
+    /* Efek hati berjatuhan */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: red;
       font-size: 20px;
       animation: fall linear forwards;
-      pointer-events: none;
+      z-index: -1;
     }
-    .heart { color: #ff4d6d; }
-    .sakura { color: pink; }
     @keyframes fall {
-      from { transform: translateY(-10vh); opacity: 1; }
-      to { transform: translateY(110vh); opacity: 0; }
+      to { transform: translateY(100vh); opacity: 0; }
     }
-    .letter-popup {
-      display: none;
+
+    /* Efek sakura */
+    .sakura {
       position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 0 30px rgba(255,255,255,0.3);
-      z-index: 3;
-      text-align: left;
+      top: -10px;
+      font-size: 18px;
+      color: pink;
+      animation: sakuraFall linear forwards;
+      z-index: -1;
     }
-    .letter-popup h2 {
-      text-align: center;
-      color: #ff4d6d;
-      margin-bottom: 20px;
+    @keyframes sakuraFall {
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
-    .letter-popup .body {
-      line-height: 1.8;
-      font-size: 1.05em;
-      text-align: justify;
-      white-space: pre-line;
+
+    /* Konten utama */
+    .container {
+      position: relative;
+      top: 30vh;
+      z-index: 1;
     }
-    .close {
-      display: block;
-      margin: 20px auto 0;
-      padding: 10px 25px;
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff99cc;
+      text-shadow: 0 0 20px #ff66cc, 0 0 40px #ff99cc;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff66cc; }
+      to { text-shadow: 0 0 30px #ff3399, 0 0 60px #ff99cc; }
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      margin: 15px;
       border: none;
-      border-radius: 10px;
-      background: #ff4d6d;
-      color: white;
+      border-radius: 25px;
+      font-size: 1em;
       cursor: pointer;
+      color: white;
+      background: linear-gradient(45deg, #ff3399, #ff66cc);
+      box-shadow: 0 4px 15px rgba(255, 51, 153, 0.6);
+      transition: 0.3s;
+    }
+    .btn:hover { transform: scale(1.1); }
+
+    /* Popup surat panjang */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.4s;
+      z-index: 10;
+    }
+    .overlay.active { visibility: visible; opacity: 1; }
+
+    .letter {
+      background: #fff0f5;
+      color: #ff2e63;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 450px;
+      text-align: left;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      position: relative;
+      animation: popupScale 0.5s ease forwards;
+    }
+    @keyframes popupScale {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .letter .head {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .letter .body p {
+      margin: 10px 0;
+      line-height: 1.5em;
+    }
+    .letter .actions {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      animation: confettiFall linear forwards;
+      z-index: 5;
+    }
+    @keyframes confettiFall {
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
   <canvas id="stars"></canvas>
+
   <div class="container">
-    <h1>Alya Nurrachman (Aya), maukah kamu jadi bagian dari hidupku? 💖</h1>
-    <div class="buttons">
-      <button class="yes" onclick="showLetter()">Iya</button>
-      <button class="no" onclick="alert('Yahh... 😢')">Tidak</button>
-    </div>
+    <h1>Hai Alya Nurrachman (Aya) 🌸</h1>
+    <p>Aku punya satu pertanyaan penting...<br><br>
+       Maukah kamu menjadi bagian terindah dalam hidupku? 💖</p>
+    <button class="btn" id="openLetter">Iya 💕</button>
+    <button class="btn" onclick="alert('Yakin mau nolak? 😢')">Tidak 😢</button>
   </div>
 
-  <div class="letter-popup" id="letter">
-    <h2>Untuk Alya Nurrachman (Aya)</h2>
-    <div class="body">
-      Aya,  
-
-      Ada banyak hal yang mungkin tak bisa aku ucapkan langsung di depanmu,  
-      jadi biarkan malam ini, di bawah langit penuh bintang, aku tuliskan semuanya.  
-
-      Sejak aku mengenalmu, ada sesuatu yang berubah dalam hidupku.  
-      Hari-hariku yang biasanya biasa saja, tiba-tiba menjadi berarti.  
-      Senyummu seperti cahaya kecil yang mampu menerangi hatiku,  
-      tatapanmu menenangkan, dan setiap percakapan denganmu membuatku merasa lengkap.  
-
-      Aku ingin kamu tahu, Aya…  
-      kehadiranmu adalah anugerah yang tidak pernah aku duga.  
-      Aku jatuh, bukan karena kebetulan, tapi karena hatiku menemukan rumahnya di dirimu.  
-
-      Aku mungkin bukan yang sempurna,  
-      tapi aku berjanji akan selalu berusaha jadi yang terbaik untukmu.  
-      Aku ingin ada di sisimu, dalam senyum maupun tangis,  
-      dalam tawa maupun lelahmu, dalam setiap cerita hidupmu.  
-
-      Aya, aku tidak butuh alasan rumit untuk mencintaimu.  
-      Kamu adalah alasanku.  
-      Cukup sederhana, tapi begitu dalam.  
-
-      Jadi malam ini, aku bertanya dengan seluruh ketulusan hatiku:  
-      Maukah kamu berjalan bersamaku,  
-      bukan hanya untuk hari ini,  
-      tapi untuk setiap hari yang akan datang? 💕
+  <!-- Popup surat panjang -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="letter" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+      <div class="head" id="letterTitle">Surat untuk Alya Nurrachman (Aya)</div>
+      <div class="body" id="letterBody">
+        <p>Alya Nurrachman (Aya) yang tersayang,</p>
+        <p>Aku menulis ini karena setiap kali melihatmu aku merasa tenang. Senyummu mengubah hari-hariku, dan suaramu selalu ingin kuingat. Aku ingin menjadi orang yang membuatmu tertawa, yang menjaga dan mendukungmu kapanpun.</p>
+        <p>Jika kamu mengizinkan, aku ingin memulai cerita indah bersamamu — sederhana, tulus, dan penuh hormat. Kalau hatimu berkata iya, aku janji akan menjaganya dengan sepenuh hati.</p>
+        <p>Selamanya menunggu jawabanmu,<br><strong>— Seseorang yang sangat menyukaimu</strong></p>
+      </div>
+      <div class="actions">
+        <button class="btn no" id="closeLetter">Baca lagi</button>
+        <button class="btn yes" id="sendLetter">Lanjut ke WhatsApp</button>
+      </div>
     </div>
-    <button class="close" onclick="closeLetter()">Tutup</button>
   </div>
 
   <script>
-    // Bintang
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
+    // Background bintang
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    let stars = [];
-    for (let i = 0; i < 150; i++) {
-      stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
+
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+      stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.5, d: Math.random() * 1 });
     }
+
     function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "white";
-      for (let s of stars) {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-        ctx.fill();
-        s.y += 0.2;
-        if (s.y > canvas.height) s.y = 0;
-      }
-      requestAnimationFrame(drawStars);
+      ctx.beginPath();
+      stars.forEach(s => { ctx.moveTo(s.x,s.y); ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true); });
+      ctx.fill();
+      stars.forEach(s => { s.y += s.d; if(s.y>canvas.height){ s.y=0; s.x=Math.random()*canvas.width;} });
     }
-    drawStars();
+    setInterval(drawStars,50);
 
-    // Hati
-    setInterval(() => {
-      let heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '❤️';
-      heart.style.left = Math.random()*100 + 'vw';
-      heart.style.animationDuration = (3+Math.random()*3) + 's';
+    // Hati jatuh
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random()*window.innerWidth+"px";
+      heart.style.animationDuration = (Math.random()*3+2)+"s";
       document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(), 6000);
-    }, 800);
-
-    // Sakura
-    setInterval(() => {
-      let sakura = document.createElement('div');
-      sakura.classList.add('sakura');
-      sakura.textContent = '🌸';
-      sakura.style.left = Math.random()*100 + 'vw';
-      sakura.style.animationDuration = (4+Math.random()*3) + 's';
-      document.body.appendChild(sakura);
-      setTimeout(()=>sakura.remove(), 7000);
-    }, 1200);
-
-    // Surat
-    function showLetter() {
-      document.getElementById('letter').style.display = 'block';
-      // Efek confetti
-      for (let i = 0; i < 30; i++) {
-        let confetti = document.createElement('div');
-        confetti.textContent = '✨';
-        confetti.style.position = 'absolute';
-        confetti.style.left = Math.random()*100 + 'vw';
-        confetti.style.top = '-10px';
-        confetti.style.fontSize = '20px';
-        confetti.style.animation = 'fall linear forwards';
-        confetti.style.animationDuration = (3+Math.random()*3)+'s';
-        document.body.appendChild(confetti);
-        setTimeout(()=>confetti.remove(), 6000);
-      }
+      setTimeout(()=>heart.remove(),5000);
     }
-    function closeLetter() {
-      document.getElementById('letter').style.display = 'none';
+    setInterval(createHeart,800);
+
+    // Sakura jatuh
+    function createSakura() {
+      const sakura = document.createElement("div");
+      sakura.className = "sakura";
+      sakura.innerHTML = "🌸";
+      sakura.style.left = Math.random()*window.innerWidth+"px";
+      sakura.style.animationDuration = (Math.random()*5+3)+"s";
+      document.body.appendChild(sakura);
+      setTimeout(()=>sakura.remove(),7000);
+    }
+    setInterval(createSakura,1200);
+
+    // Popup surat
+    const overlay = document.getElementById("overlay");
+    document.getElementById("openLetter").addEventListener("click",()=>{
+      overlay.classList.add("active");
+      launchConfetti();
+    });
+    document.getElementById("closeLetter").addEventListener("click",()=>{
+      overlay.classList.remove("active");
+    });
+    document.getElementById("sendLetter").addEventListener("click",()=>{
+      window.location.href="https://wa.me/6285179956922?text=Iya%20aku%20mau%20❤️";
+    });
+
+    // Confetti
+    function launchConfetti(){
+      for(let i=0;i<50;i++){
+        const confetti=document.createElement("div");
+        confetti.className="confetti";
+        confetti.style.left=Math.random()*window.innerWidth+"px";
+        confetti.style.top="-10px";
+        confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+        confetti.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(confetti);
+        setTimeout(()=>confetti.remove(),5000);
+      }
     }
   </script>
 </body>
