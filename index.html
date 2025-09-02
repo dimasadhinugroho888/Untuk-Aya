@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Alya Nurrachman (Aya)</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      text-align: center;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    h1 {
+      font-size: 2.5em;
+      text-shadow: 0 0 15px rgba(255,255,255,0.8);
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      padding: 12px 28px;
+      margin: 12px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .yes { background: #ff4d6d; color: white; box-shadow: 0 0 15px #ff4d6d; }
+    .yes:hover { background: #e63956; }
+    .no { background: #444; color: white; }
+    .no:hover { background: #222; }
+    .heart, .sakura {
+      position: absolute;
+      font-size: 20px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+    .heart { color: #ff4d6d; }
+    .sakura { color: pink; }
+    @keyframes fall {
+      from { transform: translateY(-10vh); opacity: 1; }
+      to { transform: translateY(110vh); opacity: 0; }
+    }
+    .letter-popup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 0 30px rgba(255,255,255,0.3);
+      z-index: 3;
+      text-align: left;
+    }
+    .letter-popup h2 {
+      text-align: center;
+      color: #ff4d6d;
+      margin-bottom: 20px;
+    }
+    .letter-popup .body {
+      line-height: 1.8;
+      font-size: 1.05em;
+      text-align: justify;
+      white-space: pre-line;
+    }
+    .close {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="container">
+    <h1>Alya Nurrachman (Aya), maukah kamu jadi bagian dari hidupku? 💖</h1>
+    <div class="buttons">
+      <button class="yes" onclick="showLetter()">Iya</button>
+      <button class="no" onclick="alert('Yahh... 😢')">Tidak</button>
+    </div>
+  </div>
+
+  <div class="letter-popup" id="letter">
+    <h2>Untuk Alya Nurrachman (Aya)</h2>
+    <div class="body">
+      Aya,  
+
+      Ada banyak hal yang mungkin tak bisa aku ucapkan langsung di depanmu,  
+      jadi biarkan malam ini, di bawah langit penuh bintang, aku tuliskan semuanya.  
+
+      Sejak aku mengenalmu, ada sesuatu yang berubah dalam hidupku.  
+      Hari-hariku yang biasanya biasa saja, tiba-tiba menjadi berarti.  
+      Senyummu seperti cahaya kecil yang mampu menerangi hatiku,  
+      tatapanmu menenangkan, dan setiap percakapan denganmu membuatku merasa lengkap.  
+
+      Aku ingin kamu tahu, Aya…  
+      kehadiranmu adalah anugerah yang tidak pernah aku duga.  
+      Aku jatuh, bukan karena kebetulan, tapi karena hatiku menemukan rumahnya di dirimu.  
+
+      Aku mungkin bukan yang sempurna,  
+      tapi aku berjanji akan selalu berusaha jadi yang terbaik untukmu.  
+      Aku ingin ada di sisimu, dalam senyum maupun tangis,  
+      dalam tawa maupun lelahmu, dalam setiap cerita hidupmu.  
+
+      Aya, aku tidak butuh alasan rumit untuk mencintaimu.  
+      Kamu adalah alasanku.  
+      Cukup sederhana, tapi begitu dalam.  
+
+      Jadi malam ini, aku bertanya dengan seluruh ketulusan hatiku:  
+      Maukah kamu berjalan bersamaku,  
+      bukan hanya untuk hari ini,  
+      tapi untuk setiap hari yang akan datang? 💕
+    </div>
+    <button class="close" onclick="closeLetter()">Tutup</button>
+  </div>
+
+  <script>
+    // Bintang
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5});
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      for (let s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fill();
+        s.y += 0.2;
+        if (s.y > canvas.height) s.y = 0;
+      }
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // Hati
+    setInterval(() => {
+      let heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = Math.random()*100 + 'vw';
+      heart.style.animationDuration = (3+Math.random()*3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(), 6000);
+    }, 800);
+
+    // Sakura
+    setInterval(() => {
+      let sakura = document.createElement('div');
+      sakura.classList.add('sakura');
+      sakura.textContent = '🌸';
+      sakura.style.left = Math.random()*100 + 'vw';
+      sakura.style.animationDuration = (4+Math.random()*3) + 's';
+      document.body.appendChild(sakura);
+      setTimeout(()=>sakura.remove(), 7000);
+    }, 1200);
+
+    // Surat
+    function showLetter() {
+      document.getElementById('letter').style.display = 'block';
+      // Efek confetti
+      for (let i = 0; i < 30; i++) {
+        let confetti = document.createElement('div');
+        confetti.textContent = '✨';
+        confetti.style.position = 'absolute';
+        confetti.style.left = Math.random()*100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.fontSize = '20px';
+        confetti.style.animation = 'fall linear forwards';
+        confetti.style.animationDuration = (3+Math.random()*3)+'s';
+        document.body.appendChild(confetti);
+        setTimeout(()=>confetti.remove(), 6000);
+      }
+    }
+    function closeLetter() {
+      document.getElementById('letter').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
